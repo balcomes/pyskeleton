@@ -14,10 +14,10 @@ def create_figure(current_feature_name):
 	colors = [colormap[x] for x in flowers['species']]
 
 	p = figure(title = "Iris Morphology")
-	p.xaxis.axis_label = current_feature_name
-	p.yaxis.axis_label = 'Petal Width'
+	p.xaxis.axis_label = current_feature_name_one
+	p.yaxis.axis_label = current_feature_name_two
 
-	p.circle(flowers[current_feature_name], flowers["petal_width"],
+	p.circle(flowers[current_feature_name_one], flowers[current_feature_name_two],
 		 color=colors, fill_alpha=0.2, size=10)
 	return p
 
@@ -25,9 +25,12 @@ def create_figure(current_feature_name):
 @app.route('/')
 def index():
 	# Determine the selected feature
-	current_feature_name = request.args.get("feature_name")
-	if current_feature_name == None:
-		current_feature_name = feature_names[0]
+	current_feature_name_one = request.args.get("feature_name_one")
+	current_feature_name_two = request.args.get("feature_name_two")
+	if current_feature_name_one == None:
+		current_feature_name_one = feature_names[0]
+	if current_feature_name_two == None:
+		current_feature_name_two = feature_names[0]
 
 	# Create the plot
 	plot = create_figure(current_feature_name)
