@@ -9,7 +9,7 @@ app = Flask(__name__)
 feature_names = flowers.columns[0:-1].values.tolist()
 
 # Create the main plot
-def create_figure(current_feature_name):
+def create_figure(current_feature_name_one, current_feature_name_two):
 	colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
 	colors = [colormap[x] for x in flowers['species']]
 
