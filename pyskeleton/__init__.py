@@ -33,7 +33,7 @@ def index():
 		current_feature_name_two = feature_names[0]
 
 	# Create the plot
-	plot = create_figure(current_feature_name)
+	plot = create_figure(current_feature_name_one,current_feature_name_two)
 
 	# Embed plot into HTML via Flask Render
 	script, div = components(plot)
