@@ -15,9 +15,18 @@
 <H1>Iris Histogram</H1>
 
 <form action="/">
-<select name="feature_name">
+<select name="feature_name_one">
 	{% for feature in feature_names %}
-		{% if feature == current_feature_name %}
+		{% if feature == current_feature_name_one %}
+			<option selected value="{{ feature }}">{{ feature }}</option> 
+		{% else %} 
+			<option value="{{ feature }}">{{ feature }}</option> 
+		{% endif %}
+	{% endfor %}
+</select>
+<select name="feature_name_two">
+	{% for feature in feature_names %}
+		{% if feature == current_feature_name_two %}
 			<option selected value="{{ feature }}">{{ feature }}</option> 
 		{% else %} 
 			<option value="{{ feature }}">{{ feature }}</option> 
