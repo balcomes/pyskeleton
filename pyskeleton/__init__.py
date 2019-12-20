@@ -1,23 +1,22 @@
 from flask import Flask, render_template, request
 import pandas as pd
-from bokeh.charts import Histogram
 from bokeh.embed import components
-from sklearn import datasets
-
-iris_df = datasets.load_iris()
+from bokeh.plotting import figure, show, output_file
+from bokeh.sampledata.iris import flowers
 
 app = Flask(__name__)
 
 # Create the main plot
 def create_figure(current_feature_name, bins):
-	p = Histogram(iris_df, current_feature_name, title=current_feature_name, color='Species', 
-	 	bins=bins, legend='top_right', width=600, height=400)
+	colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
+	colors = [colormap[x] for x in flowers['species']]
 
-	# Set the x axis label
-	p.xaxis.axis_label = current_feature_name
+	p = figure(title = "Iris Morphology")
+	p.xaxis.axis_label = 'Petal Length'
+	p.yaxis.axis_label = 'Petal Width'
 
-	# Set the y axis label
-	p.yaxis.axis_label = 'Count'
+	p.circle(flowers["petal_length"], flowers["petal_width"],
+		 color=colors, fill_alpha=0.2, size=10)
 	return p
 
 # Index page
@@ -29,7 +28,7 @@ def index():
 		current_feature_name = "Sepal Length"
 
 	# Create the plot
-	plot = create_figure(current_feature_name, 10)
+	plot = create_figure(current_feature_name)
 		
 	# Embed plot into HTML via Flask Render
 	script, div = components(plot)
